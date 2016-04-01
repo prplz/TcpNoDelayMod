@@ -2,7 +2,7 @@
 
 A forge mod for minecraft 1.7.10 that sets TCP_NODELAY to true, instead of the regular false. This reduces ingame latency and gives a smoother gameplay experience.
 
-Additionally it removes the setting of IP_TOS, which was also remove in some 1.8.x release of minecraft.
+Additionally it removes the setting of IP_TOS, which was also removed in some 1.8.x release of minecraft.
 
 This is achieved by transforming the inner class `net.minecraft.network.NetworkManager$2`.
 
