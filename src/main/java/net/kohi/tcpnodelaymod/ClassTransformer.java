@@ -12,6 +12,7 @@ public class ClassTransformer implements IClassTransformer {
         if (bytes == null) {
             return null;
         }
+        
         if (transformedName.equals("net.minecraft.network.NetworkManager$2")) {
             try {
                 ClassReader classReader = new ClassReader(bytes);
