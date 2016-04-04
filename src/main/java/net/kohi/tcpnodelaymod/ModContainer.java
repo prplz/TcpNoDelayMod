@@ -15,7 +15,7 @@ public class ModContainer extends DummyModContainer {
         ModMetadata meta = getMetadata();
         meta.modId = "TcpNoDelayMod";
         meta.name = "TcpNoDelayMod";
-        meta.version = "1.0";
+        meta.version = "1.1";
         meta.authorList = Arrays.asList("prplz", "Travisvv", "KohiBot");
 
     }
