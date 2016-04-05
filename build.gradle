@@ -36,6 +36,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes("TweakClass": "net.kohi.tcpnodelaymod.Tweaker")
+        attributes("TweakClass": "net.kohi.tcpnodelaymod.TcpNoDelayTweaker")
     }
 }
