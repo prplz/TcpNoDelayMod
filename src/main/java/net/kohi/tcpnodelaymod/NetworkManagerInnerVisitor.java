@@ -5,17 +5,17 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class NetworkManager2Visitor extends ClassVisitor {
+public class NetworkManagerInnerVisitor extends ClassVisitor {
 
-    public NetworkManager2Visitor(ClassVisitor classVisitor) {
-        super(Opcodes.ASM5, classVisitor);
+    public NetworkManagerInnerVisitor(ClassVisitor classVisitor) {
+        super(Opcodes.ASM4, classVisitor);
     }
 
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
         if (name.equals("initChannel")) {
-            return new MethodVisitor(Opcodes.ASM5, mv) {
+            return new MethodVisitor(Opcodes.ASM4, mv) {
                 private String option;
 
                 @Override
@@ -29,7 +29,7 @@ public class NetworkManager2Visitor extends ClassVisitor {
                 }
 
                 @Override
-                public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+                public void visitMethodInsn(int opcode, String owner, String name, String desc) {
                     if (opcode == Opcodes.INVOKEINTERFACE &&
                             owner.equals("io/netty/channel/ChannelConfig") &&
                             name.equals("setOption") &&
@@ -38,16 +38,12 @@ public class NetworkManager2Visitor extends ClassVisitor {
                             LogManager.getLogger("TcpNoDelayMod").info("Setting TCP_NODELAY to true");
                             mv.visitInsn(Opcodes.POP);
                             mv.visitInsn(Opcodes.ICONST_1);
-                            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;", false);
-                            mv.visitMethodInsn(opcode, owner, name, desc, itf);
-                            return;
-                        } else if (option.equals("IP_TOS")) {
-                            LogManager.getLogger("TcpNoDelayMod").info("Not setting IP_TOS");
-                            mv.visitInsn(Opcodes.POP2);
+                            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
+                            mv.visitMethodInsn(opcode, owner, name, desc);
                             return;
                         }
                     }
-                    mv.visitMethodInsn(opcode, owner, name, desc, itf);
+                    mv.visitMethodInsn(opcode, owner, name, desc);
                 }
             };
         }

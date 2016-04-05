@@ -22,7 +22,7 @@ compileJava {
     targetCompatibility = 1.6
 }
 
-version = "1.1"
+version = "2.0"
 group = "net.kohi"
 
 minecraft {
@@ -36,6 +36,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes("FMLCorePlugin": "net.kohi.tcpnodelaymod.FMLLoadingPlugin")
+        attributes("TweakClass": "net.kohi.tcpnodelaymod.Tweaker")
     }
 }

@@ -12,11 +12,12 @@ public class ClassTransformer implements IClassTransformer {
         if (bytes == null) {
             return null;
         }
-        if (transformedName.equals("net.minecraft.network.NetworkManager$2")) {
+        // check for any inner classes of NetworkManager. It differes between mc versions
+        if (transformedName.startsWith("net.minecraft.network.NetworkManager$")) {
             try {
                 ClassReader classReader = new ClassReader(bytes);
                 ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES);
-                ClassVisitor classVisitor = new NetworkManager2Visitor(classWriter);
+                ClassVisitor classVisitor = new NetworkManagerInnerVisitor(classWriter);
                 classReader.accept(classVisitor, ClassReader.SKIP_FRAMES);
                 return classWriter.toByteArray();
             } catch (Exception ex) {
