@@ -2,7 +2,7 @@
 
 A forge mod for minecraft 1.7.2, 1.7.10 and 1.8 that sets TCP_NODELAY to true, instead of the regular false. This reduces ingame latency and gives a smoother gameplay experience.
 
-This mod is not needed in 1.8.8 and later as minecraft already has this change.
+This mod is not needed in 1.8.1 and later as minecraft already has this change.
 
 The mod transforms an inner class of `net.minecraft.network.NetworkManager`, essentially doing the following:
 ```diff
